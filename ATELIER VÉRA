@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATELIER VÉRA | Autumn / Winter 2026 Luxury Fashion</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond (Serif) & Plus Jakarta Sans (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alabaster: '#FAF8F5',
+                        warmStone: '#F2EEE8',
+                        obsidian: '#141414',
+                        charcoal: '#262626',
+                        mutedInk: '#6B665F',
+                        gold: '#C5A065',
+                        goldDark: '#A8844A',
+                        terracotta: '#8E3B2E',
+                        terracottaLight: '#F9ECEA'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-alabaster text-obsidian font-sans antialiased selection:bg-gold selection:text-white overflow-x-hidden">
+
+    <!-- ==========================================
+         1. TOP PROMOTIONAL OFFER TICKER BAR
+    =========================================== -->
+    <div class="bg-obsidian text-alabaster text-[10px] sm:text-xs tracking-[0.22em] uppercase py-2.5 px-4 text-center font-medium border-b border-white/10">
+        <span>COMPLIMENTARY EXPRESS SHIPPING ON ORDERS OVER $200 &bull; AUTUMN/WINTER COLLECTION LIVE &bull; USE CODE </span>
+        <button onclick="copyPromoCode()" class="underline decoration-gold underline-offset-4 text-gold hover:text-white transition-colors font-semibold cursor-pointer" title="Click to copy code">
+            VERA20
+        </button>
+        <span> FOR 20% OFF</span>
+    </div>
+
+    <!-- ==========================================
+         2. STICKY GLASSMORPHIC NAVIGATION BAR
+    =========================================== -->
+    <header id="navbar" class="sticky top-0 z-40 bg-alabaster/90 backdrop-blur-md border-b border-obsidian/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Brand Mark -->
+            <a href="#hero" class="flex items-center gap-3 group focus:outline-none">
+                <span class="w-8 h-8 rounded-full border border-obsidian/30 group-hover:border-gold flex items-center justify-center text-obsidian group-hover:text-gold transition-colors">
+                    <span class="font-serif italic text-lg font-semibold">V</span>
+                </span>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl sm:text-[26px] tracking-[0.18em] font-semibold text-obsidian leading-none">ATELIER VÉRA</span>
+                    <span class="text-[9px] tracking-[0.34em] uppercase text-mutedInk mt-1">Paris &bull; Milan</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center gap-8 text-xs uppercase tracking-[0.2em] font-medium text-charcoal">
+                <a href="#catalog" onclick="filterByCategory('all')" class="hover:text-goldDark transition-colors py-2">New Arrivals</a>
+                <a href="#collections" class="hover:text-goldDark transition-colors py-2">Collections</a>
+                <a href="#categories" class="hover:text-goldDark transition-colors py-2">Categories</a>
+                <a href="#offers" class="text-terracotta hover:opacity-80 transition-opacity py-2 font-semibold">Offers</a>
+                <a href="#collections" class="hover:text-goldDark transition-colors py-2">Lookbook</a>
+            </nav>
+
+            <!-- Right Utility Icons: Search, Wishlist, Shopping Bag -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Search Jump Toggle -->
+                <button 
+                    onclick="focusCatalogSearch()" 
+                    aria-label="Search Catalog"
+                    class="p-2.5 rounded-full hover:bg-warmStone text-obsidian transition-colors"
+                >
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                </button>
+
+                <!-- Wishlist Drawer Trigger -->
+                <button 
+                    id="wishlist-trigger"
+                    onclick="openWishlistDrawer()"
+                    aria-label="Open Wishlist"
+                    class="relative p-2.5 rounded-full hover:bg-warmStone text-obsidian transition-colors"
+                >
+                    <i data-lucide="heart" class="w-5 h-5"></i>
+                    <span id="wishlist-badge" class="absolute top-1 right-1 w-4 h-4 rounded-full bg-gold text-white text-[10px] font-bold flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Shopping Bag Drawer Trigger -->
+                <button 
+                    id="bag-trigger"
+                    onclick="openBagDrawer()"
+                    aria-label="Open Shopping Bag"
+                    class="relative flex items-center gap-2 px-3.5 py-2 rounded-full bg-obsidian hover:bg-charcoal text-white text-xs uppercase tracking-wider font-medium transition-colors"
+                >
+                    <i data-lucide="shopping-bag" class="w-4 h-4 text-gold"></i>
+                    <span class="hidden sm:inline">Bag</span>
+                    <span id="bag-badge" class="w-5 h-5 rounded-full bg-gold text-obsidian text-[11px] font-bold flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-btn" aria-label="Toggle Menu" class="lg:hidden p-2 rounded-lg text-obsidian hover:bg-warmStone transition-colors">
+                    <i data-lucide="menu" id="mobile-open-icon" class="w-6 h-6"></i>
+                    <i data-lucide="x" id="mobile-close-icon" class="w-6 h-6 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-alabaster border-t border-obsidian/10 px-6 pt-4 pb-8">
+            <nav class="flex flex-col space-y-3 text-xs uppercase tracking-[0.2em] font-medium text-obsidian">
+                <a href="#catalog" onclick="closeMobileMenu(); filterByCategory('all')" class="py-2.5 border-b border-obsidian/5">New Arrivals</a>
+                <a href="#collections" onclick="closeMobileMenu()" class="py-2.5 border-b border-obsidian/5">Collections</a>
+                <a href="#categories" onclick="closeMobileMenu()" class="py-2.5 border-b border-obsidian/5">Categories</a>
+                <a href="#offers" onclick="closeMobileMenu()" class="py-2.5 border-b border-obsidian/5 text-terracotta font-semibold">Seasonal Offers</a>
+                <a href="#collections" onclick="closeMobileMenu()" class="py-2.5">Lookbook</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         3. FULL-BLEED EDITORIAL HERO SECTION
+    =========================================== -->
+    <section id="hero" class="relative min-h-[86vh] flex items-center overflow-hidden bg-obsidian">
+        <!-- Editorial Runway/Studio Backdrop -->
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=2000&q=85" 
+                alt="ATELIER VÉRA Autumn Winter 2026 Runway Editorial" 
+                onerror="this.src='https://placehold.co/1920x1080/141414/C5A065?text=ATELIER+VERA+AW26'"
+                class="w-full h-full object-cover object-center opacity-80"
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-obsidian/90 via-obsidian/55 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-obsidian/70 via-transparent to-obsidian/30"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-24 w-full">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-gold text-xs uppercase tracking-[0.28em] font-medium mb-6">
+                    <span>Autumn / Winter 2026</span>
+                </div>
+                <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[82px] text-white font-normal leading-[1.03] tracking-tight mb-6">
+                    Sculpted Silhouettes for <span class="italic text-gold">Modern Dressing</span>
+                </h1>
+                <p class="text-stone-200 text-base sm:text-lg font-light leading-relaxed max-w-xl mb-10">
+                    Architectural tailoring, double-faced Mongolian cashmere, and fluid heavyweight silks crafted in small atelier editions.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center gap-4">
+                    <a href="#catalog" onclick="filterByCategory('all')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-alabaster text-obsidian hover:bg-gold hover:text-white text-xs uppercase tracking-[0.22em] font-semibold text-center transition-all duration-300 shadow-xl">
+                        Shop New Arrivals
+                    </a>
+                    <a href="#collections" class="w-full sm:w-auto px-8 py-4 rounded-full border border-white/40 text-white hover:border-gold hover:text-gold backdrop-blur-sm text-xs uppercase tracking-[0.22em] font-semibold text-center transition-all duration-300">
+                        Explore Collections
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         4. CLOTHING CATEGORIES GRID (5 VISUAL CARDS)
+    =========================================== -->
+    <section id="categories" class="py-20 md:py-28 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <span class="text-goldDark uppercase tracking-[0.28em] text-xs font-semibold">Curated Departments</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-obsidian font-normal mt-2">Shop by Category</h2>
+            </div>
+            <p class="text-mutedInk text-sm max-w-md font-light">
+                Select a wardrobe pillar below to filter our seasonal pieces immediately.
+            </p>
+        </div>
+
+        <!-- 5 Visual Category Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+            <!-- Category 1: Women -->
+            <button onclick="filterByCategory('Women', true)" class="group relative h-72 sm:h-80 rounded-2xl overflow-hidden text-left shadow-sm focus:outline-none">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80" alt="Women's Collection" onerror="this.src='https://placehold.co/600x800/141414/C5A065?text=Women'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.24em] text-gold">01</p>
+                        <h3 class="font-serif text-2xl mt-0.5">Women</h3>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </div>
+            </button>
+
+            <!-- Category 2: Men -->
+            <button onclick="filterByCategory('Men', true)" class="group relative h-72 sm:h-80 rounded-2xl overflow-hidden text-left shadow-sm focus:outline-none">
+                <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=700&q=80" alt="Men's Collection" onerror="this.src='https://placehold.co/600x800/141414/C5A065?text=Men'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.24em] text-gold">02</p>
+                        <h3 class="font-serif text-2xl mt-0.5">Men</h3>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </div>
+            </button>
+
+            <!-- Category 3: Outerwear -->
+            <button onclick="filterByCategory('Outerwear', true)" class="group relative h-72 sm:h-80 rounded-2xl overflow-hidden text-left shadow-sm focus:outline-none">
+                <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=700&q=80" alt="Outerwear Collection" onerror="this.src='https://placehold.co/600x800/141414/C5A065?text=Outerwear'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.24em] text-gold">03</p>
+                        <h3 class="font-serif text-2xl mt-0.5">Outerwear</h3>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </div>
+            </button>
+
+            <!-- Category 4: Knitwear -->
+            <button onclick="filterByCategory('Knitwear', true)" class="group relative h-72 sm:h-80 rounded-2xl overflow-hidden text-left shadow-sm focus:outline-none">
+                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=700&q=80" alt="Knitwear Collection" onerror="this.src='https://placehold.co/600x800/141414/C5A065?text=Knitwear'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.24em] text-gold">04</p>
+                        <h3 class="font-serif text-2xl mt-0.5">Knitwear</h3>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </div>
+            </button>
+
+            <!-- Category 5: Accessories -->
+            <button onclick="filterByCategory('Accessories', true)" class="col-span-2 sm:col-span-1 group relative h-72 sm:h-80 rounded-2xl overflow-hidden text-left shadow-sm focus:outline-none">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=700&q=80" alt="Accessories Collection" onerror="this.src='https://placehold.co/600x800/141414/C5A065?text=Accessories'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent"></div>
+                <div class="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.24em] text-gold">05</p>
+                        <h3 class="font-serif text-2xl mt-0.5">Accessories</h3>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         5. FEATURED COLLECTIONS SHOWCASE (2 SPLIT CARDS)
+    =========================================== -->
+    <section id="collections" class="py-12 md:py-20 bg-warmStone border-y border-obsidian/10">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-goldDark uppercase tracking-[0.28em] text-xs font-semibold">Editorial Lookbook</span>
+                <h2 class="font-serif text-4xl sm:text-5xl text-obsidian font-normal mt-2">Featured Capsules</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Capsule 1: The Cashmere & Wool Edit -->
+                <div class="group relative h-[480px] sm:h-[540px] rounded-2xl overflow-hidden shadow-lg">
+                    <img 
+                        src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85" 
+                        alt="The Cashmere & Wool Edit" 
+                        onerror="this.src='https://placehold.co/1000x800/141414/C5A065?text=Cashmere+%26+Wool+Edit'"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-obsidian/35 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8 sm:bottom-10 sm:left-10 sm:right-10 text-white">
+                        <span class="text-gold uppercase tracking-[0.26em] text-[11px] font-semibold">Capsule 01 &bull; Tactile Warmth</span>
+                        <h3 class="font-serif text-3xl sm:text-4xl mt-2 mb-3">The Cashmere &amp; Wool Edit</h3>
+                        <p class="text-stone-200 text-sm font-light max-w-md mb-6 leading-relaxed">
+                            Unbleached Inner Mongolian cashmere knits and hand-finished virgin wool coats engineered for effortless layering.
+                        </p>
+                        <button 
+                            onclick="filterByCollection('cashmere-wool')"
+                            class="px-7 py-3.5 rounded-full bg-white text-obsidian hover:bg-gold hover:text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300"
+                        >
+                            Shop Collection
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Capsule 2: Evening Tailoring & Silk -->
+                <div class="group relative h-[480px] sm:h-[540px] rounded-2xl overflow-hidden shadow-lg">
+                    <img 
+                        src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=85" 
+                        alt="Evening Tailoring & Silk" 
+                        onerror="this.src='https://placehold.co/1000x800/141414/C5A065?text=Evening+Tailoring+%26+Silk'"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian/90 via-obsidian/35 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8 sm:bottom-10 sm:left-10 sm:right-10 text-white">
+                        <span class="text-gold uppercase tracking-[0.26em] text-[11px] font-semibold">Capsule 02 &bull; Nocturne</span>
+                        <h3 class="font-serif text-3xl sm:text-4xl mt-2 mb-3">Evening Tailoring &amp; Silk</h3>
+                        <p class="text-stone-200 text-sm font-light max-w-md mb-6 leading-relaxed">
+                            Sharp peak-lapel blazers, liquid charmeuse slip dresses, and sculpted leather accessories for after-hours elegance.
+                        </p>
+                        <button 
+                            onclick="filterByCollection('evening-silk')"
+                            class="px-7 py-3.5 rounded-full bg-white text-obsidian hover:bg-gold hover:text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300"
+                        >
+                            Shop Collection
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         6. INTERACTIVE PRODUCT CATALOG & SHOPPING SECTION
+    =========================================== -->
+    <section id="catalog" class="py-20 md:py-28 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        <!-- Header & Search Bar -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-10 gap-6">
+            <div>
+                <span class="text-goldDark uppercase tracking-[0.28em] text-xs font-semibold">Autumn / Winter 2026</span>
+                <h2 id="catalog-heading" class="font-serif text-4xl sm:text-5xl text-obsidian font-normal mt-2">
+                    The Seasonal Edit
+                </h2>
+            </div>
+
+            <!-- Inline Catalog Search Input -->
+            <div class="relative w-full lg:w-80">
+                <i data-lucide="search" class="w-4 h-4 text-mutedInk absolute left-4 top-1/2 -translate-y-1/2"></i>
+                <input 
+                    type="text" 
+                    id="catalog-search" 
+                    placeholder="Search garments, fabrics..." 
+                    class="w-full pl-11 pr-4 py-3 rounded-full bg-white border border-obsidian/15 text-sm text-obsidian placeholder-mutedInk focus:outline-none focus:border-gold transition-colors"
+                />
+            </div>
+        </div>
+
+        <!-- Filter Pills, Offer Toggle & Sort Toolbar -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-obsidian/10 shadow-sm mb-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <!-- Category Pills -->
+            <div id="category-pills" class="flex flex-wrap items-center gap-2">
+                <button data-cat="all" class="cat-pill px-4 py-2 rounded-full text-xs uppercase tracking-wider font-semibold bg-obsidian text-white transition-all">All</button>
+                <button data-cat="Women" class="cat-pill px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium bg-alabaster text-charcoal hover:bg-warmStone transition-all">Women</button>
+                <button data-cat="Men" class="cat-pill px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium bg-alabaster text-charcoal hover:bg-warmStone transition-all">Men</button>
+                <button data-cat="Outerwear" class="cat-pill px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium bg-alabaster text-charcoal hover:bg-warmStone transition-all">Outerwear</button>
+                <button data-cat="Knitwear" class="cat-pill px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium bg-alabaster text-charcoal hover:bg-warmStone transition-all">Knitwear</button>
+                <button data-cat="Accessories" class="cat-pill px-4 py-2 rounded-full text-xs uppercase tracking-wider font-medium bg-alabaster text-charcoal hover:bg-warmStone transition-all">Accessories</button>
+            </div>
+
+            <!-- Right Controls: On Offer Only Toggle & Sort Dropdown -->
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4 justify-between lg:justify-end border-t lg:border-t-0 pt-3 lg:pt-0 border-obsidian/10">
+                <!-- Offer/Sale Toggle -->
+                <label class="inline-flex items-center gap-2.5 cursor-pointer select-none">
+                    <input type="checkbox" id="offer-only-toggle" class="sr-only peer" />
+                    <div class="w-10 h-5 bg-stone-300 peer-checked:bg-terracotta rounded-full relative transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:w-4 after:h-4 after:rounded-full after:transition-transform peer-checked:after:translate-x-5"></div>
+                    <span class="text-xs uppercase tracking-wider font-semibold text-terracotta">On Offer Only</span>
+                </label>
+
+                <!-- Sort Dropdown -->
+                <div class="relative">
+                    <select id="catalog-sort" aria-label="Sort Products" class="pl-4 pr-9 py-2 rounded-full bg-alabaster border border-obsidian/15 text-xs uppercase tracking-wider font-medium text-obsidian focus:outline-none focus:border-gold appearance-none cursor-pointer">
+                        <option value="featured">Sort: Featured</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="bestseller">Best Sellers</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-mutedInk absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Filter Feedback Strip -->
+        <div class="flex items-center justify-between mb-6 text-xs text-mutedInk">
+            <span id="product-count-label">Showing 10 Pieces</span>
+            <button id="clear-filters-btn" onclick="resetCatalogFilters()" class="hidden text-terracotta font-semibold hover:underline">
+                Reset All Filters
+            </button>
+        </div>
+
+        <!-- Empty Catalog State -->
+        <div id="catalog-empty" class="hidden bg-white rounded-2xl border border-obsidian/10 p-12 text-center max-w-md mx-auto my-10">
+            <i data-lucide="sparkles" class="w-8 h-8 text-gold mx-auto mb-3"></i>
+            <h3 class="font-serif text-2xl text-obsidian mb-2">No Garments Found</h3>
+            <p class="text-xs text-mutedInk mb-6">No pieces match your current filter selection. Reset filters to view the full Autumn/Winter collection.</p>
+            <button onclick="resetCatalogFilters()" class="px-6 py-3 rounded-full bg-obsidian text-white text-xs uppercase tracking-wider font-semibold">
+                View Full Edit
+            </button>
+        </div>
+
+        <!-- 10 Curated Product Cards Grid -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+            <!-- Product cards injected dynamically via JavaScript -->
+        </div>
+    </section>
+
+    <!-- ==========================================
+         7. SPECIAL OFFERS & VIP CLUB BANNER
+    =========================================== -->
+    <section id="offers" class="py-20 bg-obsidian text-alabaster relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+            <div class="bg-charcoal/90 border border-gold/30 rounded-3xl p-8 sm:p-12 lg:p-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Offer Copy & Interactive Promo Code -->
+                <div class="lg:col-span-7 space-y-5">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-terracotta text-white text-[11px] uppercase tracking-[0.24em] font-semibold">
+                        <span>Private Archive Privilege</span>
+                    </div>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-white font-normal leading-tight">
+                        Enjoy <span class="italic text-gold">20% Off</span> Your Autumn / Winter Wardrobe
+                    </h2>
+                    <p class="text-stone-300 text-sm sm:text-base font-light max-w-xl leading-relaxed">
+                        Apply code <strong class="text-white font-semibold">VERA20</strong> at checkout for 20% off select seasonal tailoring, cashmere knitwear, and leather goods—plus complimentary express courier delivery over $200.
+                    </p>
+
+                    <!-- Interactive Copy Promo Code Box -->
+                    <div class="pt-2 flex flex-wrap items-center gap-4">
+                        <div class="inline-flex items-center bg-obsidian border border-gold/50 rounded-full p-1.5 pl-5">
+                            <span class="font-mono text-sm sm:text-base tracking-[0.25em] text-gold font-bold mr-4">VERA20</span>
+                            <button 
+                                onclick="copyPromoCode()" 
+                                id="copy-code-btn"
+                                class="px-5 py-2.5 rounded-full bg-gold hover:bg-goldDark text-obsidian text-xs uppercase tracking-wider font-bold transition-colors flex items-center gap-2"
+                            >
+                                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                <span id="copy-btn-label">Copy Code</span>
+                            </button>
+                        </div>
+                        <button onclick="openBagDrawer()" class="text-xs uppercase tracking-widest text-stone-300 hover:text-gold underline underline-offset-4">
+                            Apply in Shopping Bag &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Live Seasonal Countdown Timer -->
+                <div class="lg:col-span-5 bg-obsidian/90 border border-white/10 rounded-2xl p-6 sm:p-8 text-center">
+                    <p class="text-xs uppercase tracking-[0.25em] text-gold mb-2">Seasonal Archive Edit Ends In</p>
+                    <p class="text-[11px] text-stone-400 mb-6">Complimentary gift wrapping included on all orders</p>
+                    
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="bg-charcoal rounded-xl p-3 border border-white/5">
+                            <span id="cd-days" class="font-serif text-3xl sm:text-4xl text-white font-semibold block">04</span>
+                            <span class="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Days</span>
+                        </div>
+                        <div class="bg-charcoal rounded-xl p-3 border border-white/5">
+                            <span id="cd-hours" class="font-serif text-3xl sm:text-4xl text-white font-semibold block">18</span>
+                            <span class="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Hours</span>
+                        </div>
+                        <div class="bg-charcoal rounded-xl p-3 border border-white/5">
+                            <span id="cd-mins" class="font-serif text-3xl sm:text-4xl text-white font-semibold block">42</span>
+                            <span class="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Mins</span>
+                        </div>
+                        <div class="bg-charcoal rounded-xl p-3 border border-white/5">
+                            <span id="cd-secs" class="font-serif text-3xl sm:text-4xl text-gold font-semibold block">19</span>
+                            <span class="text-[10px] uppercase tracking-widest text-stone-400 mt-1 block">Secs</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         10. EDITORIAL FOOTER & NEWSLETTER SIGNUP
+    =========================================== -->
+    <footer class="bg-warmStone border-t border-obsidian/10 pt-20 pb-12 text-obsidian">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 border-b border-obsidian/10">
+                
+                <!-- Brand Philosophy -->
+                <div class="lg:col-span-4 space-y-4">
+                    <span class="font-serif text-2xl tracking-[0.18em] font-semibold block">ATELIER VÉRA</span>
+                    <p class="text-sm text-mutedInk font-light leading-relaxed max-w-sm">
+                        Founded in Paris, ATELIER VÉRA designs enduring silhouettes crafted from certified traceable European mills and ethical family ateliers.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <a href="#hero" aria-label="Instagram" class="w-9 h-9 rounded-full border border-obsidian/20 hover:border-gold hover:text-gold flex items-center justify-center transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#hero" aria-label="Globe" class="w-9 h-9 rounded-full border border-obsidian/20 hover:border-gold hover:text-gold flex items-center justify-center transition-colors">
+                            <i data-lucide="globe" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#hero" aria-label="Mail" class="w-9 h-9 rounded-full border border-obsidian/20 hover:border-gold hover:text-gold flex items-center justify-center transition-colors">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Collections Links -->
+                <div class="lg:col-span-2 space-y-3">
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-bold text-obsidian">Departments</h4>
+                    <ul class="space-y-2.5 text-sm text-mutedInk">
+                        <li><button onclick="filterByCategory('Women', true)" class="hover:text-goldDark transition-colors">Women’s Edit</button></li>
+                        <li><button onclick="filterByCategory('Men', true)" class="hover:text-goldDark transition-colors">Men’s Tailoring</button></li>
+                        <li><button onclick="filterByCategory('Outerwear', true)" class="hover:text-goldDark transition-colors">Outerwear</button></li>
+                        <li><button onclick="filterByCategory('Knitwear', true)" class="hover:text-goldDark transition-colors">Cashmere &amp; Knitwear</button></li>
+                        <li><button onclick="filterByCategory('Accessories', true)" class="hover:text-goldDark transition-colors">Leather Goods</button></li>
+                    </ul>
+                </div>
+
+                <!-- Client Care Links -->
+                <div class="lg:col-span-2 space-y-3">
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-bold text-obsidian">Client Care</h4>
+                    <ul class="space-y-2.5 text-sm text-mutedInk">
+                        <li><a href="#offers" class="hover:text-goldDark transition-colors">Shipping &amp; Returns</a></li>
+                        <li><a href="#catalog" class="hover:text-goldDark transition-colors">Size &amp; Fit Guide</a></li>
+                        <li><a href="#collections" class="hover:text-goldDark transition-colors">Fabric Provenance</a></li>
+                        <li><a href="#offers" class="hover:text-goldDark transition-colors">Private Appointments</a></li>
+                    </ul>
+                </div>
+
+                <!-- Private Salon Newsletter -->
+                <div class="lg:col-span-4 space-y-4">
+                    <h4 class="text-xs uppercase tracking-[0.2em] font-bold text-obsidian">Join the Private Salon</h4>
+                    <p class="text-sm text-mutedInk font-light">
+                        Receive early access to runway capsule drops, private trunk shows, and an instant 15% welcome privilege.
+                    </p>
+                    <form id="newsletter-form" class="flex gap-2">
+                        <input 
+                            type="email" 
+                            id="newsletter-email" 
+                            required 
+                            placeholder="Enter your email address" 
+                            class="flex-1 px-4 py-3 rounded-full bg-white border border-obsidian/15 text-sm text-obsidian placeholder-mutedInk focus:outline-none focus:border-gold"
+                        />
+                        <button type="submit" class="px-6 py-3 rounded-full bg-obsidian hover:bg-charcoal text-white text-xs uppercase tracking-wider font-semibold transition-colors">
+                            Join
+                        </button>
+                    </form>
+                    <p id="newsletter-feedback" class="text-xs text-emerald-700 font-medium hidden">
+                        Welcome to ATELIER VÉRA. Your private invitation has been dispatched.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-mutedInk">
+                <p>&copy; 2026 ATELIER VÉRA Paris. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <span>Privacy Policy</span>
+                    <span>Terms of Service</span>
+                    <span>Complimentary Returns within 30 Days</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         8. INTERACTIVE QUICK VIEW PRODUCT MODAL
+    =========================================== -->
+    <div id="quickview-modal" role="dialog" aria-modal="true" aria-label="Product Quick View" class="fixed inset-0 z-50 hidden bg-obsidian/75 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-obsidian/10 relative my-auto">
+            <!-- Close Button -->
+            <button id="qv-close-btn" aria-label="Close Quick View" class="absolute top-5 right-5 z-20 p-2.5 rounded-full bg-alabaster hover:bg-warmStone text-obsidian transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-12">
+                <!-- Left Gallery Column -->
+                <div class="md:col-span-6 bg-alabaster p-6 sm:p-8 flex flex-col justify-between">
+                    <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-warmStone shadow-inner">
+                        <img id="qv-main-img" src="" alt="" class="w-full h-full object-cover transition-all duration-300" />
+                        <span id="qv-badge" class="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold bg-obsidian text-white">NEW</span>
+                    </div>
+                    <!-- Angle Thumbnails -->
+                    <div id="qv-thumbs" class="grid grid-cols-2 gap-3 mt-4">
+                        <!-- Thumbnails injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Right Product Details & Add to Bag Column -->
+                <div class="md:col-span-6 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div>
+                            <span id="qv-category" class="text-[11px] uppercase tracking-[0.25em] text-goldDark font-semibold">Category</span>
+                            <h3 id="qv-title" class="font-serif text-3xl sm:text-4xl text-obsidian mt-1">Garment Name</h3>
+                            <p id="qv-fabric" class="text-xs text-mutedInk mt-1">100% Mongolian Cashmere</p>
+                        </div>
+
+                        <!-- Price Display -->
+                        <div class="flex items-baseline gap-3 pt-1">
+                            <span id="qv-price" class="text-2xl font-semibold text-obsidian">$420</span>
+                            <span id="qv-original-price" class="text-base text-mutedInk line-through hidden">$525</span>
+                        </div>
+
+                        <p id="qv-description" class="text-sm text-charcoal font-light leading-relaxed"></p>
+
+                        <!-- Color Selector -->
+                        <div class="pt-2">
+                            <div class="flex items-center justify-between text-xs mb-2">
+                                <span class="uppercase tracking-wider font-semibold text-obsidian">Color</span>
+                                <span id="qv-selected-color-name" class="text-mutedInk">Oatmeal</span>
+                            </div>
+                            <div id="qv-colors" class="flex items-center gap-2.5">
+                                <!-- Color dots injected dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Size Selector & Fit Guide -->
+                        <div class="pt-2">
+                            <div class="flex items-center justify-between text-xs mb-2">
+                                <span class="uppercase tracking-wider font-semibold text-obsidian">Select Size</span>
+                                <span class="text-goldDark underline cursor-help" title="True to European atelier sizing. Model is 5'10&quot; wearing size S.">True to Size &bull; Fit Guide</span>
+                            </div>
+                            <div id="qv-sizes" class="grid grid-cols-5 gap-2">
+                                <!-- Size pills injected dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Fabric & Care Accordion Summary -->
+                        <div class="bg-alabaster rounded-xl p-4 border border-obsidian/5 text-xs text-mutedInk space-y-1.5">
+                            <p><strong class="text-obsidian font-semibold">Composition:</strong> <span id="qv-composition"></span></p>
+                            <p><strong class="text-obsidian font-semibold">Atelier Care:</strong> Dry clean only or gentle cold hand wash flat.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quantity Stepper & Add to Bag -->
+                    <div class="pt-4 border-t border-obsidian/10 flex items-center gap-3">
+                        <div class="flex items-center border border-obsidian/20 rounded-full px-3 py-2.5">
+                            <button type="button" onclick="adjustQvQty(-1)" aria-label="Decrease quantity" class="p-1 text-obsidian hover:text-goldDark">
+                                <i data-lucide="minus" class="w-3.5 h-3.5"></i>
+                            </button>
+                            <span id="qv-qty" class="w-8 text-center text-sm font-semibold">1</span>
+                            <button type="button" onclick="adjustQvQty(1)" aria-label="Increase quantity" class="p-1 text-obsidian hover:text-goldDark">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                            </button>
+                        </div>
+
+                        <button 
+                            type="button" 
+                            id="qv-add-btn"
+                            class="flex-1 py-3.5 px-6 rounded-full bg-obsidian hover:bg-charcoal text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-lg flex items-center justify-center gap-2"
+                        >
+                            <i data-lucide="shopping-bag" class="w-4 h-4 text-gold"></i>
+                            <span>Add to Bag</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         9A. SLIDE-OVER SHOPPING BAG DRAWER
+    =========================================== -->
+    <div id="bag-overlay" class="fixed inset-0 z-50 hidden bg-obsidian/60 backdrop-blur-xs transition-opacity">
+        <aside id="bag-drawer" aria-label="Shopping Bag" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-alabaster shadow-2xl flex flex-col justify-between border-l border-obsidian/10">
+            
+            <!-- Drawer Top Header & Free Shipping Progress -->
+            <div class="p-6 bg-white border-b border-obsidian/10">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2.5">
+                        <i data-lucide="shopping-bag" class="w-5 h-5 text-goldDark"></i>
+                        <h3 class="font-serif text-2xl text-obsidian">Shopping Bag</h3>
+                        <span id="drawer-bag-count" class="text-xs text-mutedInk">(0)</span>
+                    </div>
+                    <button onclick="closeBagDrawer()" aria-label="Close Shopping Bag" class="p-2 rounded-full hover:bg-alabaster text-obsidian">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- $200 Free Express Shipping Progress Bar -->
+                <div class="bg-alabaster rounded-xl p-3.5 border border-obsidian/5">
+                    <p id="shipping-progress-text" class="text-xs text-charcoal font-medium mb-2">
+                        Add <strong class="text-obsidian">$200.00</strong> more for complimentary express shipping.
+                    </p>
+                    <div class="w-full h-1.5 bg-warmStone rounded-full overflow-hidden">
+                        <div id="shipping-progress-bar" class="h-full bg-gold transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bag Items Scrollable Area -->
+            <div id="bag-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Bag items or empty state injected dynamically -->
+            </div>
+
+            <!-- Checkout Confirmation View (Hidden unless checkout clicked) -->
+            <div id="checkout-success-panel" class="hidden flex-1 p-8 flex flex-col items-center justify-center text-center space-y-4 bg-white">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                    <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+                </div>
+                <span class="text-[11px] uppercase tracking-[0.25em] text-goldDark font-semibold">Order Confirmed</span>
+                <h4 class="font-serif text-3xl text-obsidian">Thank You for Your Order</h4>
+                <p id="checkout-order-summary" class="text-xs text-mutedInk max-w-xs leading-relaxed">
+                    Your ATELIER VÉRA garments are being prepared in our Paris studio with signature garment bags.
+                </p>
+                <button onclick="resetAfterCheckout()" class="mt-4 px-6 py-3 rounded-full bg-obsidian text-white text-xs uppercase tracking-widest font-semibold">
+                    Continue Shopping
+                </button>
+            </div>
+
+            <!-- Drawer Bottom: Promo Code, Totals & Checkout CTA -->
+            <div id="bag-footer" class="p-6 bg-white border-t border-obsidian/10 space-y-4">
+                <!-- Interactive Promo Code Input -->
+                <div>
+                    <form id="bag-promo-form" class="flex gap-2">
+                        <input 
+                            type="text" 
+                            id="bag-promo-input" 
+                            placeholder="Promo code (e.g. VERA20)" 
+                            class="flex-1 px-3.5 py-2.5 rounded-xl bg-alabaster border border-obsidian/15 text-xs uppercase tracking-wider text-obsidian focus:outline-none focus:border-gold"
+                        />
+                        <button type="submit" class="px-4 py-2.5 rounded-xl bg-warmStone hover:bg-gold hover:text-white text-obsidian text-xs uppercase tracking-wider font-semibold transition-colors">
+                            Apply
+                        </button>
+                    </form>
+                    <p id="promo-status-msg" class="text-[11px] mt-1.5 hidden"></p>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="space-y-1.5 text-xs pt-2 border-t border-obsidian/10">
+                    <div class="flex justify-between text-mutedInk">
+                        <span>Subtotal</span>
+                        <span id="bag-subtotal">$0.00</span>
+                    </div>
+                    <div id="bag-discount-row" class="hidden flex justify-between text-terracotta font-semibold">
+                        <span>Promo Discount (VERA20 - 20%)</span>
+                        <span id="bag-discount">-$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-mutedInk">
+                        <span>Express Shipping</span>
+                        <span id="bag-shipping">$15.00</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold text-obsidian pt-2 border-t border-obsidian/10">
+                        <span>Estimated Total</span>
+                        <span id="bag-total">$0.00</span>
+                    </div>
+                </div>
+
+                <button 
+                    id="checkout-btn"
+                    onclick="processCheckout()"
+                    class="w-full py-4 rounded-full bg-obsidian hover:bg-charcoal disabled:opacity-40 text-white text-xs uppercase tracking-[0.22em] font-semibold transition-all shadow-lg"
+                >
+                    Proceed to Checkout
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ==========================================
+         9B. SLIDE-OVER WISHLIST DRAWER
+    =========================================== -->
+    <div id="wishlist-overlay" class="fixed inset-0 z-50 hidden bg-obsidian/60 backdrop-blur-xs">
+        <aside aria-label="Saved Wishlist" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-alabaster shadow-2xl flex flex-col justify-between border-l border-obsidian/10">
+            <div class="p-6 bg-white border-b border-obsidian/10 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <i data-lucide="heart" class="w-5 h-5 text-terracotta fill-terracotta"></i>
+                    <h3 class="font-serif text-2xl text-obsidian">Saved Wishlist</h3>
+                </div>
+                <button onclick="closeWishlistDrawer()" aria-label="Close Wishlist" class="p-2 rounded-full hover:bg-alabaster text-obsidian">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <div id="wishlist-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Saved items injected dynamically -->
+            </div>
+
+            <div class="p-6 bg-white border-t border-obsidian/10">
+                <button onclick="closeWishlistDrawer()" class="w-full py-3.5 rounded-full border border-obsidian text-obsidian hover:bg-obsidian hover:text-white text-xs uppercase tracking-widest font-semibold transition-colors">
+                    Continue Exploring
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- ==========================================
+         FLOATING TOAST NOTIFICATION
+    =========================================== -->
+    <div id="toast-notification" role="status" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden bg-obsidian text-white px-5 py-3 rounded-full shadow-2xl border border-gold/40 flex items-center gap-2.5 text-xs tracking-wider">
+        <i data-lucide="check-circle" class="w-4 h-4 text-gold"></i>
+        <span id="toast-message">Added to bag</span>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT APPLICATION LOGIC
+    =========================================== -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        /* ------------------------------------------
+           1. CURATED FASHION CATALOG (10 PIECES)
+        ------------------------------------------- */
+        const products = [
+            {
+                id: "AV-01",
+                title: "Aurelia Double-Faced Wool Coat",
+                category: "Outerwear",
+                collection: "cashmere-wool",
+                fabric: "90% Virgin Wool, 10% Cashmere",
+                price: 540,
+                originalPrice: 675,
+                badge: "20% OFF",
+                isOffer: true,
+                bestseller: true,
+                colors: [
+                    { name: "Camel", hex: "#C19A6B" },
+                    { name: "Obsidian", hex: "#141414" },
+                    { name: "Alabaster", hex: "#EAE5DC" }
+                ],
+                sizes: ["XS", "S", "M", "L", "XL"],
+                images: [
+                    "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Hand-sewn using traditional double-faced tailoring for weightless warmth without lining. Features a relaxed kimono sleeve and detachable self-tie belt."
+            },
+            {
+                id: "AV-02",
+                title: "Sienna Silk Charmeuse Slip Dress",
+                category: "Women",
+                collection: "evening-silk",
+                fabric: "100% Mulberry Silk (22 Momme)",
+                price: 380,
+                originalPrice: null,
+                badge: "NEW",
+                isOffer: false,
+                bestseller: true,
+                colors: [
+                    { name: "Champagne", hex: "#DFC8A2" },
+                    { name: "Terracotta", hex: "#8E3B2E" },
+                    { name: "Noir", hex: "#141414" }
+                ],
+                sizes: ["XS", "S", "M", "L"],
+                images: [
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Bias-cut from lustrous 22-momme mulberry silk that drapes effortlessly along the silhouette. Finished with delicate French seams and adjustable rouleau straps."
+            },
+            {
+                id: "AV-03",
+                title: "Montaigne Mongolian Cashmere Turtleneck",
+                category: "Knitwear",
+                collection: "cashmere-wool",
+                fabric: "100% Grade-A Inner Mongolian Cashmere",
+                price: 295,
+                originalPrice: null,
+                badge: "BESTSELLER",
+                isOffer: false,
+                bestseller: true,
+                colors: [
+                    { name: "Oatmeal", hex: "#E3DDD3" },
+                    { name: "Espresso", hex: "#3B2F2F" },
+                    { name: "Charcoal", hex: "#363636" }
+                ],
+                sizes: ["XS", "S", "M", "L", "XL"],
+                images: [
+                    "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Knitted in a plush 7-gauge rib with dropped shoulders and side-slit hems. Naturally breathable and spun from long-staple undyed fibers."
+            },
+            {
+                id: "AV-04",
+                title: "Valen Structured Peak-Lapel Blazer",
+                category: "Men",
+                collection: "evening-silk",
+                fabric: "100% Italian Super 130s Wool",
+                price: 460,
+                originalPrice: 575,
+                badge: "20% OFF",
+                isOffer: true,
+                bestseller: false,
+                colors: [
+                    { name: "Midnight", hex: "#141414" },
+                    { name: "Taupe", hex: "#8B7D70" }
+                ],
+                sizes: ["S", "M", "L", "XL"],
+                images: [
+                    "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Tailored in Milan with half-canvas construction, roped shoulders, and horn buttons. Designed to transition seamlessly from gallery openings to evening dining."
+            },
+            {
+                id: "AV-05",
+                title: "Lucia Sculpted Calfskin Tote",
+                category: "Accessories",
+                collection: "evening-silk",
+                fabric: "100% Full-Grain Tuscan Calfskin",
+                price: 490,
+                originalPrice: null,
+                badge: "LIMITED",
+                isOffer: false,
+                bestseller: true,
+                colors: [
+                    { name: "Cognac", hex: "#9A5B32" },
+                    { name: "Obsidian", hex: "#141414" }
+                ],
+                sizes: ["ONE SIZE"],
+                images: [
+                    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Architectural gusseted tote handcrafted in Florence with suede lining, brushed brass feet, and an interior zipped leather pochette."
+            },
+            {
+                id: "AV-06",
+                title: "Élodie Pleated Palazzo Trousers",
+                category: "Women",
+                collection: "evening-silk",
+                fabric: "78% Triacetate, 22% Japanese Crepe",
+                price: 260,
+                originalPrice: 325,
+                badge: "20% OFF",
+                isOffer: true,
+                bestseller: false,
+                colors: [
+                    { name: "Ivory", hex: "#F4F1EA" },
+                    { name: "Obsidian", hex: "#141414" }
+                ],
+                sizes: ["XS", "S", "M", "L"],
+                images: [
+                    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "High-waisted wide-leg trousers with crisp double front pleats and fluid movement. Resistant to creasing for effortless travel."
+            },
+            {
+                id: "AV-07",
+                title: "Soren Merino & Silk Polo Knit",
+                category: "Men",
+                collection: "cashmere-wool",
+                fabric: "70% Extra-Fine Merino, 30% Silk",
+                price: 220,
+                originalPrice: null,
+                badge: "NEW",
+                isOffer: false,
+                bestseller: false,
+                colors: [
+                    { name: "Sandstone", hex: "#D2C5B4" },
+                    { name: "Forest", hex: "#28362E" },
+                    { name: "Noir", hex: "#141414" }
+                ],
+                sizes: ["S", "M", "L", "XL"],
+                images: [
+                    "https://images.unsplash.com/photo-1614252369475-531eba835eb1?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Fine-gauge open-collar knit polo featuring mother-of-pearl buttons and ribbed cuffs for refined everyday layering."
+            },
+            {
+                id: "AV-08",
+                title: "Céline Belted Trench Coat",
+                category: "Outerwear",
+                collection: "cashmere-wool",
+                fabric: "100% Water-Repellent Organic Cotton Gabardine",
+                price: 495,
+                originalPrice: null,
+                badge: "BESTSELLER",
+                isOffer: false,
+                bestseller: true,
+                colors: [
+                    { name: "Trench Stone", hex: "#C8B89D" },
+                    { name: "Olive", hex: "#4B533E" }
+                ],
+                sizes: ["XS", "S", "M", "L", "XL"],
+                images: [
+                    "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Woven in Lancashire with storm flaps, raglan sleeves, and a horn-buckled waist belt for timeless transitional protection."
+            },
+            {
+                id: "AV-09",
+                title: "Camille Ribbed Cashmere Cardigan",
+                category: "Knitwear",
+                collection: "cashmere-wool",
+                fabric: "100% Recycled & Virgin Cashmere Blend",
+                price: 248,
+                originalPrice: 310,
+                badge: "20% OFF",
+                isOffer: true,
+                bestseller: false,
+                colors: [
+                    { name: "Terracotta", hex: "#8E3B2E" },
+                    { name: "Cream", hex: "#F5F2EB" }
+                ],
+                sizes: ["XS", "S", "M", "L"],
+                images: [
+                    "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Cropped architectural cardigan with sculpted blouson sleeves and tonal matte-enamel buttons."
+            },
+            {
+                id: "AV-10",
+                title: "Véra Silk Twill Foulard Scarf",
+                category: "Accessories",
+                collection: "evening-silk",
+                fabric: "100% Como Silk Twill (90cm x 90cm)",
+                price: 165,
+                originalPrice: null,
+                badge: "NEW",
+                isOffer: false,
+                bestseller: false,
+                colors: [
+                    { name: "Gold / Ivory", hex: "#C5A065" },
+                    { name: "Terracotta / Noir", hex: "#8E3B2E" }
+                ],
+                sizes: ["ONE SIZE"],
+                images: [
+                    "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=900&q=85",
+                    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=85"
+                ],
+                description: "Printed in Lake Como with hand-rolled edges featuring an exclusive geometric line-art motif inspired by modernist sculpture."
+            }
+        ];
+
+        /* ------------------------------------------
+           2. APPLICATION STATE (LOCALSTORAGE PERSISTED)
+        ------------------------------------------- */
+        let bag = JSON.parse(localStorage.getItem('vera_bag') || '[]');
+        let wishlist = JSON.parse(localStorage.getItem('vera_wishlist') || '[]');
+        let activeCategory = 'all';
+        let activeCollection = null;
+        let promoApplied = false;
+
+        // Track card-level selected color & size per product
+        const cardSelections = {};
+        products.forEach(p => {
+            cardSelections[p.id] = {
+                color: p.colors[0].name,
+                size: p.sizes.includes('M') ? 'M' : p.sizes[0]
+            };
+        });
+
+        /* ------------------------------------------
+           3. CATALOG RENDERING & FILTERING
+        ------------------------------------------- */
+        const productGrid = document.getElementById('product-grid');
+        const catalogSearch = document.getElementById('catalog-search');
+        const offerOnlyToggle = document.getElementById('offer-only-toggle');
+        const catalogSort = document.getElementById('catalog-sort');
+        const productCountLabel = document.getElementById('product-count-label');
+        const clearFiltersBtn = document.getElementById('clear-filters-btn');
+        const catalogEmpty = document.getElementById('catalog-empty');
+        const catalogHeading = document.getElementById('catalog-heading');
+
+        function renderCatalog() {
+            const query = catalogSearch.value.trim().toLowerCase();
+            const offerOnly = offerOnlyToggle.checked;
+            const sortBy = catalogSort.value;
+
+            let filtered = products.filter(p => {
+                const matchesCat = activeCategory === 'all' || p.category === activeCategory;
+                const matchesCol = !activeCollection || p.collection === activeCollection;
+                const matchesOffer = !offerOnly || p.isOffer;
+                const matchesQuery = !query || 
+                    p.title.toLowerCase().includes(query) ||
+                    p.fabric.toLowerCase().includes(query) ||
+                    p.category.toLowerCase().includes(query);
+                return matchesCat && matchesCol && matchesOffer && matchesQuery;
+            });
+
+            if (sortBy === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'bestseller') {
+                filtered.sort((a, b) => (b.bestseller ? 1 : 0) - (a.bestseller ? 1 : 0));
+            }
+
+            // Update count & reset button visibility
+            productCountLabel.textContent = `Showing ${filtered.length} ${filtered.length === 1 ? 'Piece' : 'Pieces'}`;
+            const isFiltered = activeCategory !== 'all' || activeCollection !== null || offerOnly || query !== '';
+            clearFiltersBtn.classList.toggle('hidden', !isFiltered);
+
+            if (activeCollection === 'cashmere-wool') {
+                catalogHeading.textContent = 'The Cashmere & Wool Edit';
+            } else if (activeCollection === 'evening-silk') {
+                catalogHeading.textContent = 'Evening Tailoring & Silk';
+            } else if (activeCategory !== 'all') {
+                catalogHeading.textContent = `${activeCategory} Collection`;
+            } else {
+                catalogHeading.textContent = 'The Seasonal Edit';
+            }
+
+            productGrid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                catalogEmpty.classList.remove('hidden');
+                return;
+            } else {
+                catalogEmpty.classList.add('hidden');
+            }
+
+            filtered.forEach(p => {
+                const isWishlisted = wishlist.includes(p.id);
+                const sel = cardSelections[p.id];
+                const badgeStyle = p.isOffer 
+                    ? 'bg-terracotta text-white' 
+                    : (p.badge === 'LIMITED' ? 'bg-gold text-obsidian' : 'bg-obsidian text-white');
+
+                const card = document.createElement('article');
+                card.className = 'group bg-white rounded-2xl overflow-hidden border border-obsidian/10 hover:border-gold/60 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between';
+
+                card.innerHTML = `
+                    <div>
+                        <!-- Product Image with Secondary Hover Preview -->
+                        <div class="relative aspect-[3/4] overflow-hidden bg-warmStone">
+                            <img 
+                                src="${p.images[0]}" 
+                                alt="${p.title}" 
+                                loading="lazy"
+                                onerror="this.src='https://placehold.co/600x800/F2EEE8/141414?text=${encodeURIComponent(p.title)}'"
+                                class="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                            />
+                            <img 
+                                src="${p.images[1] || p.images[0]}" 
+                                alt="${p.title} alternate view" 
+                                loading="lazy"
+                                class="w-full h-full object-cover absolute inset-0 opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                            />
+
+                            <!-- Top Left Tag Badge -->
+                            <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${badgeStyle}">
+                                ${p.badge}
+                            </span>
+
+                            <!-- Top Right Wishlist Heart Button -->
+                            <button 
+                                type="button"
+                                onclick="toggleWishlist('${p.id}')"
+                                aria-label="Save ${p.title} to Wishlist"
+                                class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-sm transition-transform active:scale-90"
+                            >
+                                <i data-lucide="heart" class="w-4 h-4 ${isWishlisted ? 'fill-terracotta text-terracotta' : 'text-obsidian'}"></i>
+                            </button>
+
+                            <!-- Hover Quick View Trigger -->
+                            <button 
+                                type="button"
+                                onclick="openQuickView('${p.id}')"
+                                class="absolute bottom-3.5 left-3.5 right-3.5 py-2.5 rounded-full bg-white/95 hover:bg-obsidian text-obsidian hover:text-white text-[11px] uppercase tracking-[0.2em] font-semibold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-md"
+                            >
+                                Quick View
+                            </button>
+                        </div>
+
+                        <!-- Card Details -->
+                        <div class="p-5 space-y-3">
+                            <div>
+                                <p class="text-[11px] text-mutedInk truncate">${p.fabric}</p>
+                                <h3 onclick="openQuickView('${p.id}')" class="font-serif text-xl text-obsidian font-medium mt-0.5 hover:text-goldDark cursor-pointer transition-colors leading-snug">
+                                    ${p.title}
+                                </h3>
+                            </div>
+
+                            <!-- Price Row -->
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="text-base font-semibold ${p.isOffer ? 'text-terracotta' : 'text-obsidian'}">$${p.price}</span>
+                                ${p.originalPrice ? `<span class="text-xs text-mutedInk line-through">$${p.originalPrice}</span>` : ''}
+                            </div>
+
+                            <!-- Color Swatches -->
+                            <div class="flex items-center justify-between pt-1">
+                                <div class="flex items-center gap-2">
+                                    ${p.colors.map(c => `
+                                        <button 
+                                            type="button"
+                                            onclick="selectCardColor('${p.id}', '${c.name}')"
+                                            aria-label="Select color ${c.name}"
+                                            title="${c.name}"
+                                            class="w-4 h-4 rounded-full border ${sel.color === c.name ? 'ring-2 ring-offset-2 ring-obsidian border-white' : 'border-obsidian/25'}"
+                                            style="background-color: ${c.hex};"
+                                        ></button>
+                                    `).join('')}
+                                </div>
+                                <span class="text-[10px] text-mutedInk">${sel.color}</span>
+                            </div>
+
+                            <!-- Quick Size Pills -->
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                ${p.sizes.map(sz => `
+                                    <button 
+                                        type="button"
+                                        onclick="selectCardSize('${p.id}', '${sz}')"
+                                        class="px-2 py-1 rounded text-[10px] font-semibold border transition-colors ${sel.size === sz ? 'bg-obsidian text-white border-obsidian' : 'bg-alabaster text-charcoal border-obsidian/15 hover:border-obsidian'}"
+                                    >
+                                        ${sz}
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Add to Bag Action -->
+                    <div class="px-5 pb-5">
+                        <button 
+                            type="button"
+                            onclick="addToBag('${p.id}', cardSelections['${p.id}'].color, cardSelections['${p.id}'].size, 1)"
+                            class="w-full py-3 rounded-full bg-alabaster hover:bg-obsidian text-obsidian hover:text-white border border-obsidian/20 hover:border-obsidian text-[11px] uppercase tracking-[0.2em] font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+                        >
+                            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                            <span>Add to Bag</span>
+                        </button>
+                    </div>
+                `;
+
+                productGrid.appendChild(card);
+            });
+
+            lucide.createIcons();
+        }
+
+        window.selectCardColor = function(productId, colorName) {
+            cardSelections[productId].color = colorName;
+            renderCatalog();
+        };
+
+        window.selectCardSize = function(productId, sizeName) {
+            cardSelections[productId].size = sizeName;
+            renderCatalog();
+        };
+
+        window.filterByCategory = function(cat, shouldScroll = false) {
+            activeCategory = cat;
+            activeCollection = null;
+
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.classList.add('bg-obsidian', 'text-white');
+                    btn.classList.remove('bg-alabaster', 'text-charcoal');
+                } else {
+                    btn.classList.remove('bg-obsidian', 'text-white');
+                    btn.classList.add('bg-alabaster', 'text-charcoal');
+                }
+            });
+
+            renderCatalog();
+            if (shouldScroll) {
+                document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+
+        window.filterByCollection = function(collectionSlug) {
+            activeCategory = 'all';
+            activeCollection = collectionSlug;
+            offerOnlyToggle.checked = false;
+
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                btn.classList.toggle('bg-obsidian', btn.dataset.cat === 'all');
+                btn.classList.toggle('text-white', btn.dataset.cat === 'all');
+                btn.classList.toggle('bg-alabaster', btn.dataset.cat !== 'all');
+                btn.classList.toggle('text-charcoal', btn.dataset.cat !== 'all');
+            });
+
+            renderCatalog();
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        window.resetCatalogFilters = function() {
+            activeCategory = 'all';
+            activeCollection = null;
+            offerOnlyToggle.checked = false;
+            catalogSearch.value = '';
+            catalogSort.value = 'featured';
+            filterByCategory('all', false);
+        };
+
+        document.querySelectorAll('.cat-pill').forEach(btn => {
+            btn.addEventListener('click', () => filterByCategory(btn.dataset.cat, false));
+        });
+
+        catalogSearch.addEventListener('input', renderCatalog);
+        offerOnlyToggle.addEventListener('change', renderCatalog);
+        catalogSort.addEventListener('change', renderCatalog);
+
+        window.focusCatalogSearch = function() {
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => catalogSearch.focus(), 500);
+        };
+
+        /* ------------------------------------------
+           4. QUICK VIEW PRODUCT MODAL
+        ------------------------------------------- */
+        const qvModal = document.getElementById('quickview-modal');
+        const qvCloseBtn = document.getElementById('qv-close-btn');
+        let currentQvProduct = null;
+        let qvSelectedColor = '';
+        let qvSelectedSize = '';
+        let qvQuantity = 1;
+
+        window.openQuickView = function(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+
+            currentQvProduct = p;
+            qvSelectedColor = cardSelections[p.id].color;
+            qvSelectedSize = cardSelections[p.id].size;
+            qvQuantity = 1;
+
+            document.getElementById('qv-main-img').src = p.images[0];
+            document.getElementById('qv-main-img').alt = p.title;
+            document.getElementById('qv-badge').textContent = p.badge;
+            document.getElementById('qv-badge').className = `absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${p.isOffer ? 'bg-terracotta text-white' : 'bg-obsidian text-white'}`;
+            document.getElementById('qv-category').textContent = `${p.category} • Autumn / Winter 2026`;
+            document.getElementById('qv-title').textContent = p.title;
+            document.getElementById('qv-fabric').textContent = p.fabric;
+            document.getElementById('qv-composition').textContent = p.fabric;
+            document.getElementById('qv-description').textContent = p.description;
+            document.getElementById('qv-qty').textContent = qvQuantity;
+
+            const qvPrice = document.getElementById('qv-price');
+            const qvOrig = document.getElementById('qv-original-price');
+            qvPrice.textContent = `$${p.price}`;
+            qvPrice.className = `text-2xl font-semibold ${p.isOffer ? 'text-terracotta' : 'text-obsidian'}`;
+
+            if (p.originalPrice) {
+                qvOrig.textContent = `$${p.originalPrice}`;
+                qvOrig.classList.remove('hidden');
+            } else {
+                qvOrig.classList.add('hidden');
+            }
+
+            // Thumbnails
+            document.getElementById('qv-thumbs').innerHTML = p.images.map((img, i) => `
+                <button type="button" onclick="document.getElementById('qv-main-img').src='${img}'" class="aspect-[4/3] rounded-xl overflow-hidden border border-obsidian/15 hover:border-gold transition-colors">
+                    <img src="${img}" alt="Angle ${i + 1}" class="w-full h-full object-cover" />
+                </button>
+            `).join('');
+
+            renderQvSelectors();
+
+            document.getElementById('qv-add-btn').onclick = () => {
+                addToBag(p.id, qvSelectedColor, qvSelectedSize, qvQuantity);
+                closeQuickView();
+            };
+
+            qvModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons();
+        };
+
+        function renderQvSelectors() {
+            if (!currentQvProduct) return;
+            document.getElementById('qv-selected-color-name').textContent = qvSelectedColor;
+
+            document.getElementById('qv-colors').innerHTML = currentQvProduct.colors.map(c => `
+                <button 
+                    type="button"
+                    onclick="qvSelectedColor='${c.name}'; renderQvSelectors();"
+                    class="w-7 h-7 rounded-full border ${qvSelectedColor === c.name ? 'ring-2 ring-offset-2 ring-obsidian border-white' : 'border-obsidian/25'}"
+                    style="background-color: ${c.hex};"
+                    title="${c.name}"
+                ></button>
+            `).join('');
+
+            document.getElementById('qv-sizes').innerHTML = currentQvProduct.sizes.map(sz => `
+                <button 
+                    type="button"
+                    onclick="qvSelectedSize='${sz}'; renderQvSelectors();"
+                    class="py-2.5 rounded-xl text-xs font-semibold border transition-colors ${qvSelectedSize === sz ? 'bg-obsidian text-white border-obsidian' : 'bg-alabaster text-obsidian border-obsidian/15 hover:border-obsidian'}"
+                >
+                    ${sz}
+                </button>
+            `).join('');
+        }
+
+        window.adjustQvQty = function(delta) {
+            qvQuantity = Math.max(1, qvQuantity + delta);
+            document.getElementById('qv-qty').textContent = qvQuantity;
+        };
+
+        function closeQuickView() {
+            qvModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        qvCloseBtn.addEventListener('click', closeQuickView);
+        qvModal.addEventListener('click', (e) => {
+            if (e.target === qvModal) closeQuickView();
+        });
+
+        /* ------------------------------------------
+           5. SHOPPING BAG DRAWER & CHECKOUT LOGIC
+        ------------------------------------------- */
+        const bagOverlay = document.getElementById('bag-overlay');
+        const bagItemsContainer = document.getElementById('bag-items-container');
+        const bagFooter = document.getElementById('bag-footer');
+        const checkoutSuccessPanel = document.getElementById('checkout-success-panel');
+
+        function saveBag() {
+            localStorage.setItem('vera_bag', JSON.stringify(bag));
+            updateBagUI();
+        }
+
+        window.addToBag = function(productId, color, size, qty = 1) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = bag.findIndex(item => item.id === productId && item.color === color && item.size === size);
+            if (existingIndex > -1) {
+                bag[existingIndex].qty += qty;
+            } else {
+                bag.push({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.images[0],
+                    color,
+                    size,
+                    qty
+                });
+            }
+
+            checkoutSuccessPanel.classList.add('hidden');
+            bagItemsContainer.classList.remove('hidden');
+            bagFooter.classList.remove('hidden');
+
+            saveBag();
+            showToast(`Added "${product.title}" (${size}) to your bag`);
+        };
+
+        window.updateBagQty = function(index, delta) {
+            if (!bag[index]) return;
+            bag[index].qty += delta;
+            if (bag[index].qty <= 0) {
+                bag.splice(index, 1);
+            }
+            saveBag();
+        };
+
+        window.removeBagItem = function(index) {
+            bag.splice(index, 1);
+            saveBag();
+        };
+
+        function updateBagUI() {
+            const totalCount = bag.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('bag-badge').textContent = totalCount;
+            document.getElementById('drawer-bag-count').textContent = `(${totalCount})`;
+
+            const subtotal = bag.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const discount = promoApplied ? subtotal * 0.20 : 0;
+            const discountedSubtotal = subtotal - discount;
+            const freeShippingThreshold = 200;
+            const shipping = (subtotal === 0 || discountedSubtotal >= freeShippingThreshold) ? 0 : 15;
+            const total = discountedSubtotal + shipping;
+
+            // Update Free Shipping Bar
+            const progressPct = Math.min(100, (discountedSubtotal / freeShippingThreshold) * 100);
+            document.getElementById('shipping-progress-bar').style.width = `${progressPct}%`;
+            const remaining = Math.max(0, freeShippingThreshold - discountedSubtotal);
+            document.getElementById('shipping-progress-text').innerHTML = discountedSubtotal >= freeShippingThreshold
+                ? `<span class="text-emerald-700 font-semibold">You have unlocked Complimentary Express Shipping!</span>`
+                : `Add <strong class="text-obsidian">$${remaining.toFixed(2)}</strong> more for complimentary express shipping.`;
+
+            // Render Bag Items
+            if (bag.length === 0) {
+                bagItemsContainer.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-12 space-y-3">
+                        <i data-lucide="shopping-bag" class="w-10 h-10 text-mutedInk/50"></i>
+                        <p class="font-serif text-2xl text-obsidian">Your Bag is Empty</p>
+                        <p class="text-xs text-mutedInk max-w-xs">Explore our Autumn/Winter 2026 tailoring and cashmere capsules to begin.</p>
+                    </div>
+                `;
+                document.getElementById('checkout-btn').disabled = true;
+            } else {
+                document.getElementById('checkout-btn').disabled = false;
+                bagItemsContainer.innerHTML = bag.map((item, idx) => `
+                    <div class="bg-white rounded-2xl p-4 border border-obsidian/10 flex gap-4">
+                        <img src="${item.image}" alt="${item.title}" class="w-20 h-24 rounded-xl object-cover bg-warmStone shrink-0" />
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="font-serif text-lg text-obsidian leading-tight">${item.title}</h4>
+                                    <button onclick="removeBagItem(${idx})" aria-label="Remove item" class="text-mutedInk hover:text-terracotta">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <p class="text-[11px] text-mutedInk mt-0.5">${item.color} &bull; Size ${item.size}</p>
+                            </div>
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="flex items-center border border-obsidian/15 rounded-full px-2 py-0.5">
+                                    <button onclick="updateBagQty(${idx}, -1)" class="p-1 text-obsidian hover:text-goldDark"><i data-lucide="minus" class="w-3 h-3"></i></button>
+                                    <span class="px-2.5 text-xs font-semibold">${item.qty}</span>
+                                    <button onclick="updateBagQty(${idx}, 1)" class="p-1 text-obsidian hover:text-goldDark"><i data-lucide="plus" class="w-3 h-3"></i></button>
+                                </div>
+                                <span class="text-sm font-semibold text-obsidian">$${(item.price * item.qty).toFixed(2)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Totals
+            document.getElementById('bag-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            const discountRow = document.getElementById('bag-discount-row');
+            if (promoApplied && subtotal > 0) {
+                discountRow.classList.remove('hidden');
+                document.getElementById('bag-discount').textContent = `-$${discount.toFixed(2)}`;
+            } else {
+                discountRow.classList.add('hidden');
+            }
+            document.getElementById('bag-shipping').textContent = subtotal === 0 ? '$0.00' : (shipping === 0 ? 'Complimentary' : `$${shipping.toFixed(2)}`);
+            document.getElementById('bag-total').textContent = `$${total.toFixed(2)}`;
+
+            lucide.createIcons();
+        }
+
+        // Promo Code Form inside Bag
+        document.getElementById('bag-promo-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const code = document.getElementById('bag-promo-input').value.trim().toUpperCase();
+            const statusMsg = document.getElementById('promo-status-msg');
+            statusMsg.classList.remove('hidden');
+
+            if (code === 'VERA20') {
+                promoApplied = true;
+                statusMsg.textContent = 'Privilege code VERA20 applied (20% off).';
+                statusMsg.className = 'text-[11px] mt-1.5 text-emerald-700 font-semibold';
+                updateBagUI();
+            } else {
+                statusMsg.textContent = 'Invalid code. Try VERA20 for 20% off.';
+                statusMsg.className = 'text-[11px] mt-1.5 text-terracotta';
+            }
+        });
+
+        window.openBagDrawer = function() {
+            bagOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeBagDrawer = function() {
+            bagOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        };
+
+        bagOverlay.addEventListener('click', (e) => {
+            if (e.target === bagOverlay) closeBagDrawer();
+        });
+
+        window.processCheckout = function() {
+            if (bag.length === 0) return;
+            const totalText = document.getElementById('bag-total').textContent;
+            const itemCount = bag.reduce((s, i) => s + i.qty, 0);
+
+            document.getElementById('checkout-order-summary').textContent = 
+                `Order #AV-${Math.floor(100000 + Math.random() * 900000)} (${itemCount} ${itemCount === 1 ? 'piece' : 'pieces'}, Total ${totalText}) is confirmed and queued for express dispatch.`;
+
+            bagItemsContainer.classList.add('hidden');
+            bagFooter.classList.add('hidden');
+            checkoutSuccessPanel.classList.remove('hidden');
+
+            bag = [];
+            promoApplied = false;
+            saveBag();
+            lucide.createIcons();
+        };
+
+        window.resetAfterCheckout = function() {
+            checkoutSuccessPanel.classList.add('hidden');
+            bagItemsContainer.classList.remove('hidden');
+            bagFooter.classList.remove('hidden');
+            closeBagDrawer();
+        };
+
+        /* ------------------------------------------
+           6. WISHLIST DRAWER LOGIC
+        ------------------------------------------- */
+        const wishlistOverlay = document.getElementById('wishlist-overlay');
+        const wishlistItemsContainer = document.getElementById('wishlist-items-container');
+
+        window.toggleWishlist = function(productId) {
+            const p = products.find(item => item.id === productId);
+            if (!p) return;
+
+            if (wishlist.includes(productId)) {
+                wishlist = wishlist.filter(id => id !== productId);
+                showToast(`Removed "${p.title}" from wishlist`);
+            } else {
+                wishlist.push(productId);
+                showToast(`Saved "${p.title}" to wishlist`);
+            }
+            localStorage.setItem('vera_wishlist', JSON.stringify(wishlist));
+            updateWishlistUI();
+            renderCatalog();
+        };
+
+        function updateWishlistUI() {
+            document.getElementById('wishlist-badge').textContent = wishlist.length;
+            const savedProducts = products.filter(p => wishlist.includes(p.id));
+
+            if (savedProducts.length === 0) {
+                wishlistItemsContainer.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-12 space-y-3">
+                        <i data-lucide="heart" class="w-10 h-10 text-mutedInk/40"></i>
+                        <p class="font-serif text-2xl text-obsidian">No Saved Pieces Yet</p>
+                        <p class="text-xs text-mutedInk max-w-xs">Tap the heart icon on any garment to curate your personal wishlist.</p>
+                    </div>
+                `;
+            } else {
+                wishlistItemsContainer.innerHTML = savedProducts.map(p => `
+                    <div class="bg-white rounded-2xl p-4 border border-obsidian/10 flex gap-4">
+                        <img src="${p.images[0]}" alt="${p.title}" class="w-20 h-24 rounded-xl object-cover bg-warmStone shrink-0" />
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-2">
+                                    <h4 class="font-serif text-lg text-obsidian leading-tight">${p.title}</h4>
+                                    <button onclick="toggleWishlist('${p.id}')" aria-label="Remove from wishlist" class="text-mutedInk hover:text-terracotta">
+                                        <i data-lucide="x" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <p class="text-xs font-semibold text-obsidian mt-1">$${p.price}</p>
+                            </div>
+                            <button 
+                                onclick="addToBag('${p.id}', '${p.colors[0].name}', '${p.sizes.includes('M') ? 'M' : p.sizes[0]}', 1); closeWishlistDrawer(); openBagDrawer();"
+                                class="mt-2 py-2 px-4 rounded-full bg-obsidian text-white text-[10px] uppercase tracking-widest font-semibold hover:bg-charcoal transition-colors"
+                            >
+                                Move to Bag
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            lucide.createIcons();
+        }
+
+        window.openWishlistDrawer = function() {
+            updateWishlistUI();
+            wishlistOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeWishlistDrawer = function() {
+            wishlistOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        };
+
+        wishlistOverlay.addEventListener('click', (e) => {
+            if (e.target === wishlistOverlay) closeWishlistDrawer();
+        });
+
+        /* ------------------------------------------
+           7. PROMO COPY, COUNTDOWN TIMER, NEWSLETTER & TOAST
+        ------------------------------------------- */
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            document.getElementById('toast-message').textContent = msg;
+            toast.classList.remove('hidden');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2800);
+        }
+
+        window.copyPromoCode = function() {
+            const code = 'VERA20';
+            const tempInput = document.createElement('input');
+            tempInput.value = code;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const label = document.getElementById('copy-btn-label');
+            if (label) {
+                label.textContent = 'Copied!';
+                setTimeout(() => { label.textContent = 'Copy Code'; }, 2200);
+            }
+            showToast('Promo code VERA20 copied to clipboard!');
+        };
+
+        // Live Countdown Timer (4 days from page load)
+        const targetEndTime = Date.now() + (4 * 24 * 60 * 60 * 1000) + (18 * 60 * 60 * 1000);
+        function updateCountdown() {
+            const diff = Math.max(0, targetEndTime - Date.now());
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / 1000 / 60) % 60);
+            const secs = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+            document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Newsletter Form
+        document.getElementById('newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('newsletter-email').value = '';
+            document.getElementById('newsletter-feedback').classList.remove('hidden');
+        });
+
+        // Mobile Navigation Drawer
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileOpenIcon = document.getElementById('mobile-open-icon');
+        const mobileCloseIcon = document.getElementById('mobile-close-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden');
+            mobileOpenIcon.classList.toggle('hidden', isHidden);
+            mobileCloseIcon.classList.toggle('hidden', !isHidden);
+        });
+
+        window.closeMobileMenu = function() {
+            mobileMenu.classList.add('hidden');
+            mobileOpenIcon.classList.remove('hidden');
+            mobileCloseIcon.classList.add('hidden');
+        };
+
+        // Escape key closes open modals/drawers
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeQuickView();
+                closeBagDrawer();
+                closeWishlistDrawer();
+            }
+        });
+
+        // Initial Boot
+        updateBagUI();
+        updateWishlistUI();
+        renderCatalog();
+    </script>
+</body>
+</html>
